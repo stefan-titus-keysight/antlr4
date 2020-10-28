@@ -46,7 +46,7 @@ std::vector<misc::IntervalSet> LL1Analyzer::getDecisionLookahead(ATNState *s) co
 
     // Wipe out lookahead for this alternative if we found nothing
     // or we had a predicate when we !seeThruPreds
-    if (look[alt].size() == 0 || look[alt].contains(HIT_PRED)) {
+    if (look[alt].size() == 0 || look[alt].contains((size_t)HIT_PRED)) {
       look[alt].clear();
     }
   }

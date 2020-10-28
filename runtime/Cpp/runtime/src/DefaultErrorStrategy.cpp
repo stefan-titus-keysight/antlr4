@@ -101,7 +101,7 @@ void DefaultErrorStrategy::sync(Parser *recognizer) {
 
   // try cheaper subset first; might get lucky. seems to shave a wee bit off
   auto nextTokens = recognizer->getATN().nextTokens(s);
-  if (nextTokens.contains(Token::EPSILON) || nextTokens.contains(la)) {
+  if (nextTokens.contains((size_t)Token::EPSILON) || nextTokens.contains(la)) {
     return;
   }
 
@@ -314,7 +314,7 @@ misc::IntervalSet DefaultErrorStrategy::getErrorRecoverySet(Parser *recognizer) 
       break;
     ctx = static_cast<RuleContext *>(ctx->parent);
   }
-  recoverSet.remove(Token::EPSILON);
+  recoverSet.remove((size_t)Token::EPSILON);
 
   return recoverSet;
 }

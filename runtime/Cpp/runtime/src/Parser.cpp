@@ -478,11 +478,11 @@ bool Parser::isExpectedToken(size_t symbol) {
     return true;
   }
 
-  if (!following.contains(Token::EPSILON)) {
+  if (!following.contains((size_t)Token::EPSILON)) {
     return false;
   }
 
-  while (ctx && ctx->invokingState != ATNState::INVALID_STATE_NUMBER && following.contains(Token::EPSILON)) {
+  while (ctx && ctx->invokingState != ATNState::INVALID_STATE_NUMBER && following.contains((size_t)Token::EPSILON)) {
     atn::ATNState *invokingState = atn.states[ctx->invokingState];
     atn::RuleTransition *rt = static_cast<atn::RuleTransition*>(invokingState->transitions[0]);
     following = atn.nextTokens(rt->followState);
@@ -493,7 +493,7 @@ bool Parser::isExpectedToken(size_t symbol) {
     ctx = dynamic_cast<ParserRuleContext *>(ctx->parent);
   }
 
-  if (following.contains(Token::EPSILON) && symbol == EOF) {
+  if (following.contains((size_t)Token::EPSILON) && symbol == EOF) {
     return true;
   }
 

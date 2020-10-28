@@ -573,7 +573,7 @@ ATNConfigSet* ParserATNSimulator::removeAllConfigsNotInRuleStopState(ATNConfigSe
 
     if (lookToEndOfRule && config->state->epsilonOnlyTransitions) {
       misc::IntervalSet nextTokens = atn.nextTokens(config->state);
-      if (nextTokens.contains(Token::EPSILON)) {
+      if (nextTokens.contains((size_t)Token::EPSILON)) {
         ATNState *endOfRuleState = atn.ruleToStopState[config->state->ruleIndex];
         result->add(std::make_shared<ATNConfig>(config, endOfRuleState), &mergeCache);
       }

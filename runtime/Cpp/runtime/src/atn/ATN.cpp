@@ -137,19 +137,19 @@ misc::IntervalSet ATN::getExpectedTokens(size_t stateNumber, RuleContext *contex
   RuleContext *ctx = context;
   ATNState *s = states.at(stateNumber);
   misc::IntervalSet following = nextTokens(s);
-  if (!following.contains(Token::EPSILON)) {
+  if (!following.contains((size_t)Token::EPSILON)) {
     return following;
   }
 
   misc::IntervalSet expected;
   expected.addAll(following);
-  expected.remove(Token::EPSILON);
-  while (ctx && ctx->invokingState != ATNState::INVALID_STATE_NUMBER && following.contains(Token::EPSILON)) {
+  expected.remove((size_t)Token::EPSILON);
+  while (ctx && ctx->invokingState != ATNState::INVALID_STATE_NUMBER && following.contains((size_t)Token::EPSILON)) {
     ATNState *invokingState = states.at(ctx->invokingState);
     RuleTransition *rt = static_cast<RuleTransition*>(invokingState->transitions[0]);
     following = nextTokens(rt->followState);
     expected.addAll(following);
-    expected.remove(Token::EPSILON);
+    expected.remove((size_t)Token::EPSILON);
 
     if (ctx->parent == nullptr) {
       break;
@@ -157,7 +157,7 @@ misc::IntervalSet ATN::getExpectedTokens(size_t stateNumber, RuleContext *contex
     ctx = static_cast<RuleContext *>(ctx->parent);
   }
 
-  if (following.contains(Token::EPSILON)) {
+  if (following.contains((size_t)Token::EPSILON)) {
     expected.add(Token::EOF);
   }
 

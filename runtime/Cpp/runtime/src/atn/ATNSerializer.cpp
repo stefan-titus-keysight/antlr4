@@ -157,7 +157,7 @@ std::vector<size_t> ATNSerializer::serialize() {
   size_t nsets = sets.size();
   data.push_back(nsets);
   for (auto set : sets) {
-    bool containsEof = set.contains(Token::EOF);
+    bool containsEof = set.contains((size_t)Token::EOF);
     if (containsEof && set.getIntervals().at(0).b == -1) {
       data.push_back(set.getIntervals().size() - 1);
     }
